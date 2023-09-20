@@ -3,7 +3,6 @@ const todosContainer = document.querySelector('.todos-container')
 
 formAddTodo.addEventListener('submit', event => {
   event.preventDefault()
-
   const inputValue = event.target.add.value.trim()
   if (inputValue.length) {
     todosContainer.innerHTML += `
@@ -14,5 +13,13 @@ formAddTodo.addEventListener('submit', event => {
     `
     event.target.reset()
   }
+})
 
+// Removendo o item da lista de tarefas
+todosContainer.addEventListener('click', event => {
+  const clickedElement = event.target
+
+  if (Array.from(clickedElement.classList).includes('delete')) {
+    clickedElement.parentElement.remove()
+  }
 })
