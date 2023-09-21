@@ -1,4 +1,5 @@
 const formAddTodo = document.querySelector('.form-add-todo')
+const formInputSearch = document.querySelector('.form-search')
 const todosContainer = document.querySelector('.todos-container')
 
 formAddTodo.addEventListener('submit', event => {
@@ -15,11 +16,32 @@ formAddTodo.addEventListener('submit', event => {
   }
 })
 
-// Removendo o item da lista de tarefas
+// Remove the item from the to-do list
 todosContainer.addEventListener('click', event => {
   const clickedElement = event.target
 
   if (Array.from(clickedElement.classList).includes('delete')) {
     clickedElement.parentElement.remove()
   }
+})
+
+
+// Searching To-Do
+
+formInputSearch.addEventListener('input', event => {
+  const inputValue = event.target.value.trim().toLowerCase()
+
+  Array.from(todosContainer.children)
+    .filter(todo => !todo.textContent.toLowerCase().includes(inputValue))
+    .forEach(todo => {
+      todo.classList.remove('d-flex')
+      todo.classList.add('hidden')
+    })
+
+  Array.from(todosContainer.children)
+    .filter(todo => todo.textContent.toLowerCase().includes(inputValue))
+    .forEach(todo => {
+      todo.classList.remove('hidden')
+      todo.classList.add('d-flex')
+    })
 })
